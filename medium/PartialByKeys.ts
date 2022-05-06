@@ -1,12 +1,9 @@
-interface User {
-  name: string;
-  age: number;
-  address: string;
-}
+type Copy<T> = {
+  [K in keyof T]: T[K];
+};
 
-// type PartialByKeys<T, K> = 
-
-
-type UserPartialName = PartialByKeys<User, "name">; // { name?:string; age:number; address:string }
+type PartialByKeys<T, K extends keyof any = keyof T> = Copy<
+  Partial<Pick<T, Extract<keyof T, K>>> & Omit<T, K>
+>;
 
 export {};
